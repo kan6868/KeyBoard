@@ -1,24 +1,17 @@
-require("onScreenKeyboard")
+local keyboard = require("KeyBoard")
 
-local textField = display.newText("", 0, 0, display.contentWidth, 100, native.systemFont, 50)
-textField:setTextColor(255, 255, 255)
+local function enterFrame()
+    if keyboard.pressed("u") then
+        print("Pressing U")
+    end
 
-local keyboard = onScreenKeyboard:new()
---create a listener function that receives the events of the keyboard
-local listener = function(event)
-    if (event.phase == "ended") then
-        textField.text = keyboard:getText()
-        textField.anchorX = 0
-        textField.anchorY = 0
-        textField.x = 0
-        textField.y = 0
+    if keyboard.justPressed("i") then
+        print("Pressing i")
+    end
 
-        if (event.target.inputCompleted == true) then
-            print("Input of data complete...")
-            keyboard:destroy()
-        end
+    if keyboard.justReleased("b") then
+        print("Released b")
     end
 end
 
-keyboard:setListener(listener)
-keyboard:drawKeyBoard(keyboard.keyBoardMode.letters_small)
+Runtime:addEventListener("enterFrame", enterFrame)
